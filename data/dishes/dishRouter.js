@@ -18,7 +18,6 @@ router.get("/", (req, res) => {
 });
 
 // Add Dish
-
 router.post("/", (req, res) => {
   db.insert(req.body, ["id"])
     .into("dishes")
@@ -30,4 +29,17 @@ router.post("/", (req, res) => {
     });
 });
 
+// Get dish(id)
+
+router.get("/:id", (req, res) => {
+  db("dishes")
+    .where({ id: req.params.id })
+    .then(dish => {
+      res.status(200).json(dish);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
 module.exports = router;
