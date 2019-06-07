@@ -18,4 +18,15 @@ router.get("/", (req, res) => {
     });
 });
 
+router.post("/", (req, res) => {
+  db.insert(req.body, ["id"])
+    .into("recipes")
+    .then(id => {
+      res.status(201).json(id);
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    });
+});
+
 module.exports = router;
